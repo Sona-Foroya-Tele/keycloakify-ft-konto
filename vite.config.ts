@@ -9,7 +9,10 @@ export default defineConfig({
         react(),
         keycloakify({
             // themeName: ["ft-konto-theme"],
-            accountThemeImplementation: "none"
+            accountThemeImplementation: "none",
+            startKeycloakOptions: {
+                realmJsonFilePath: "./realm-export.json"
+            }
         })
     ],
     resolve: {
