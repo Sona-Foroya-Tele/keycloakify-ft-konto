@@ -10,7 +10,8 @@ import { getKcContextMock } from "./login/KcPageStory";
 
 if (import.meta.env.DEV) {
     window.kcContext = getKcContextMock({
-        pageId: "register.ftl",
+        pageId: "login-reset-password.ftl",
+        // pageId: "register.ftl",
         // pageId: "login.ftl",
         overrides: {}
     });
