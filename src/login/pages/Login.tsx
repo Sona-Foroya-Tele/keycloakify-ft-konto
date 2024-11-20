@@ -1,12 +1,16 @@
 import { useState, useEffect, useReducer } from "react";
+
 import { kcSanitize } from "keycloakify/lib/kcSanitize";
 import { assert } from "keycloakify/tools/assert";
 import { clsx } from "keycloakify/tools/clsx";
 import type { PageProps } from "keycloakify/login/pages/PageProps";
 import { getKcClsx, type KcClsx } from "keycloakify/login/lib/kcClsx";
+// import { getKcClsx } from "keycloakify/login/lib/kcClsx";
 import type { KcContext } from "../KcContext";
 import type { I18n } from "../i18n";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 export default function Login(props: PageProps<Extract<KcContext, { pageId: "login.ftl" }>, I18n>) {
     const { kcContext, i18n, doUseDefaultCss, Template, classes } = props;
@@ -32,15 +36,13 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
             headerNode={msg("loginAccountTitle")}
             displayInfo={realm.password && realm.registrationAllowed && !registrationDisabled}
             infoNode={
-                <div id="kc-registration-container">
-                    <div id="kc-registration">
-                        <span>
-                            {msg("noAccount")}{" "}
-                            <a tabIndex={8} href={url.registrationUrl}>
-                                {msg("doRegister")}
-                            </a>
-                        </span>
-                    </div>
+                <div className="mt-4 text-center text-sm">
+                    {/* Hevur tú onga konto ?{" "} */}
+                    {msg("noAccount")}{" "}
+                    <a tabIndex={8} href={url.registrationUrl} className="underline">
+                        {msg("doRegister")}
+                        {/* Stovna Brúkara */}
+                    </a>
                 </div>
             }
             socialProvidersNode={
@@ -75,67 +77,29 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                 </>
             }
         >
-            <div id="kc-form">
-                <div id="kc-form-wrapper">
-                    {realm.password && (
-                        <form
-                            id="kc-form-login"
-                            onSubmit={() => {
-                                setIsLoginButtonDisabled(true);
-                                return true;
-                            }}
-                            action={url.loginAction}
-                            method="post"
-                        >
-                            {!usernameHidden && (
-                                <div className={kcClsx("kcFormGroupClass")}>
-                                    <label htmlFor="username" className={kcClsx("kcLabelClass")}>
-                                        {!realm.loginWithEmailAllowed
-                                            ? msg("username")
-                                            : !realm.registrationEmailAsUsername
-                                              ? msg("usernameOrEmail")
-                                              : msg("email")}
-                                    </label>
-                                    <input
-                                        tabIndex={2}
-                                        id="username"
-                                        className={kcClsx("kcInputClass")}
-                                        name="username"
-                                        defaultValue={login.username ?? ""}
-                                        type="text"
-                                        autoFocus
-                                        autoComplete="username"
-                                        aria-invalid={messagesPerField.existsError("username", "password")}
-                                    />
-                                    {messagesPerField.existsError("username", "password") && (
-                                        <span
-                                            id="input-error"
-                                            className={kcClsx("kcInputErrorMessageClass")}
-                                            aria-live="polite"
-                                            dangerouslySetInnerHTML={{
-                                                __html: kcSanitize(messagesPerField.getFirstError("username", "password"))
-                                            }}
-                                        />
-                                    )}
-                                </div>
-                            )}
-
-                            <div className={kcClsx("kcFormGroupClass")}>
-                                <label htmlFor="password" className={kcClsx("kcLabelClass")}>
-                                    {msg("password")}
-                                </label>
-                                <PasswordWrapper kcClsx={kcClsx} i18n={i18n} passwordInputId="password">
-                                    <input
-                                        tabIndex={3}
-                                        id="password"
-                                        className={kcClsx("kcInputClass")}
-                                        name="password"
-                                        type="password"
-                                        autoComplete="current-password"
-                                        aria-invalid={messagesPerField.existsError("username", "password")}
-                                    />
-                                </PasswordWrapper>
-                                {usernameHidden && messagesPerField.existsError("username", "password") && (
+            {realm.password && (
+                <form
+                    id="kc-form-login"
+                    onSubmit={() => {
+                        setIsLoginButtonDisabled(true);
+                        return true;
+                    }}
+                    action={url.loginAction}
+                    method="post"
+                >
+                    <div className="grid gap-4">
+                        {!usernameHidden && (
+                            <div className="grid gap-2">
+                                <Label htmlFor="username">
+                                    {" "}
+                                    {!realm.loginWithEmailAllowed
+                                        ? msg("username")
+                                        : !realm.registrationEmailAsUsername
+                                          ? msg("usernameOrEmail")
+                                          : msg("email")}
+                                </Label>
+                                <Input tabIndex={2} id="username" type="text" autoComplete="email" placeholder="m@dømi.fo" autoFocus />
+                                {messagesPerField.existsError("username", "password") && (
                                     <span
                                         id="input-error"
                                         className={kcClsx("kcInputErrorMessageClass")}
@@ -146,62 +110,80 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                     />
                                 )}
                             </div>
+                        )}
 
-                            <div className={kcClsx("kcFormGroupClass", "kcFormSettingClass")}>
-                                <div id="kc-form-options">
-                                    {realm.rememberMe && !usernameHidden && (
-                                        <div className="checkbox">
-                                            <label>
-                                                <input
-                                                    tabIndex={5}
-                                                    id="rememberMe"
-                                                    name="rememberMe"
-                                                    type="checkbox"
-                                                    defaultChecked={!!login.rememberMe}
-                                                />{" "}
-                                                {msg("rememberMe")}
-                                            </label>
-                                        </div>
-                                    )}
+                        <div className="grid gap-2">
+                            <Label htmlFor="password">{msg("password")}</Label>
+                            <PasswordWrapper kcClsx={kcClsx} i18n={i18n} passwordInputId="password">
+                                <Input
+                                    tabIndex={3}
+                                    id="password"
+                                    type="password"
+                                    autoComplete="current-password"
+                                    aria-invalid={messagesPerField.existsError("username", "password")}
+                                />
+                            </PasswordWrapper>
+                        </div>
+                    </div>
+
+                    <div className={kcClsx("kcFormGroupClass")}>
+                        {/* <label htmlFor="password" className={kcClsx("kcLabelClass")}>
+                            {msg("password")}
+                        </label>
+                        <PasswordWrapper kcClsx={kcClsx} i18n={i18n} passwordInputId="password">
+                            <input
+                                tabIndex={3}
+                                id="password"
+                                className={kcClsx("kcInputClass")}
+                                name="password"
+                                type="password"
+                                autoComplete="current-password"
+                                aria-invalid={messagesPerField.existsError("username", "password")}
+                            />
+                        </PasswordWrapper> */}
+                        {usernameHidden && messagesPerField.existsError("username", "password") && (
+                            <span
+                                id="input-error"
+                                className={kcClsx("kcInputErrorMessageClass")}
+                                aria-live="polite"
+                                dangerouslySetInnerHTML={{
+                                    __html: kcSanitize(messagesPerField.getFirstError("username", "password"))
+                                }}
+                            />
+                        )}
+                    </div>
+
+                    <div className={kcClsx("kcFormGroupClass", "kcFormSettingClass")}>
+                        <div id="kc-form-options">
+                            {realm.rememberMe && !usernameHidden && (
+                                <div className="checkbox">
+                                    <label>
+                                        <input tabIndex={5} id="rememberMe" name="rememberMe" type="checkbox" defaultChecked={!!login.rememberMe} />{" "}
+                                        {msg("rememberMe")}
+                                    </label>
                                 </div>
-                                <div className={kcClsx("kcFormOptionsWrapperClass")}>
-                                    {realm.resetPasswordAllowed && (
-                                        <span>
-                                            <a tabIndex={6} href={url.loginResetCredentialsUrl}>
-                                                {msg("doForgotPassword")}
-                                            </a>
-                                        </span>
-                                    )}
-                                </div>
-                            </div>
+                            )}
+                        </div>
+                        <div className={kcClsx("kcFormOptionsWrapperClass")}>
+                            {realm.resetPasswordAllowed && (
+                                <span>
+                                    <a tabIndex={6} href={url.loginResetCredentialsUrl}>
+                                        {msg("doForgotPassword")}
+                                    </a>
+                                </span>
+                            )}
+                        </div>
+                    </div>
 
-                            <div id="kc-form-buttons" className={kcClsx("kcFormGroupClass")}>
-                                <input type="hidden" id="id-hidden-input" name="credentialId" value={auth.selectedCredential} />
+                    <div id="kc-form-buttons" className={kcClsx("kcFormGroupClass")}>
+                        <input type="hidden" id="id-hidden-input" name="credentialId" value={auth.selectedCredential} />
 
-                                <Button
-                                    className="w-full"
-                                    tabIndex={7}
-                                    disabled={isLoginButtonDisabled}
-                                    name="login"
-                                    type="submit"
-                                    value={msgStr("doLogIn")}
-                                >
-                                    {msgStr("doLogIn")}
-                                </Button>
-                                {/* <input
-                                    tabIndex={7}
-                                    disabled={isLoginButtonDisabled}
-                                    className={clsx(kcClsx("kcButtonClass", "kcButtonPrimaryClass", "kcButtonBlockClass", "kcButtonLargeClass"))}
-                                    name="login"
-                                    id="kc-login"
-                                    type="submit"
-                                    value={msgStr("doLogIn")}
-                                /> */}
-                            </div>
-                        </form>
-                    )}
-                </div>
-            </div>
+                        <Button className="w-full" tabIndex={7} disabled={isLoginButtonDisabled} name="login" type="submit" value={msgStr("doLogIn")}>
+                            {msgStr("doLogIn")}
+                        </Button>
+                    </div>
+                </form>
+            )}
         </Template>
     );
 }

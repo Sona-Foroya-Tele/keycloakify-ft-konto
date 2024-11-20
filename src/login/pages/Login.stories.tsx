@@ -16,6 +16,18 @@ export const Default: Story = {
     render: () => <KcPageStory />
 };
 
+export const Faroese: Story = {
+    render: () => (
+        <KcPageStory
+            kcContext={{
+                locale: {
+                    currentLanguageTag: "fo"
+                }
+            }}
+        />
+    )
+};
+
 export const WithInvalidCredential: Story = {
     render: () => (
         <KcPageStory

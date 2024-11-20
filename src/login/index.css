@@ -115,3 +115,9 @@
         @apply bg-background text-foreground;
     }
 }
+
+/* .kcHeaderWrapperClass {
+    @apply text-red-600;
+    @apply bg-[url('./assets/ft-logo.svg')];
+    @apply h-[100px] p-0 bg-contain bg-center bg-no-repeat overflow-visible;
+} */

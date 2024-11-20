@@ -52,4 +52,7 @@ export default function KcPage(props: { kcContext: KcContext }) {
 const classes = {
     kcHtmlClass: "",
     kcBodyClass: "bg-background text-foreground"
+    // kcHeaderClass: "",
+    // kcHeaderWrapperClass: ""
+    // kcHeaderWrapperClass: "bg-[url('./assets/ft-logo.png')]"
 } satisfies { [key in ClassKey]?: string };
