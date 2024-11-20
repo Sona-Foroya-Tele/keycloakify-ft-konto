@@ -56,14 +56,11 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
     return (
         <div className={cn(kcClsx("kcLoginClass"), "h-screen flex flex-col justify-center items-center")}>
             {/* // Place logo here */}
-
-            <img src="/src/login/assets/ft-logo.svg" className="w-80 mb-8" />
-
-            {/* <div id="kc-header" className={kcClsx("kcHeaderClass")}>
+            <div id="kc-header" className={kcClsx("kcHeaderClass")}>
                 <div id="kc-header-wrapper" className={kcClsx("kcHeaderWrapperClass")}>
                     {msg("loginTitle")}
                 </div>
-            </div> */}
+            </div>
             <Card className="mx-auto max-w-sm w-full">
                 <CardHeader>
                     <header className={kcClsx("kcFormHeaderClass")}>
