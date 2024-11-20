@@ -39,7 +39,7 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                 <div className="mt-4 text-center text-sm">
                     {/* Hevur tú onga konto ?{" "} */}
                     {msg("noAccount")}{" "}
-                    <a tabIndex={8} href={url.registrationUrl} className="underline">
+                    <a tabIndex={8} href={url.registrationUrl} className="text-blue-500 hover:text-blue-700">
                         {msg("doRegister")}
                         {/* Stovna Brúkara */}
                     </a>

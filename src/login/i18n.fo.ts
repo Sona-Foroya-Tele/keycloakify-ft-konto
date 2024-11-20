@@ -82,7 +82,7 @@ const messages: Record<MessageKey_defaultSet, string> = {
     recaptchaFailed: "Ógyldig Recaptcha",
     recaptchaNotConfigured: "Recaptcha krevst, men er ikki stillað",
     consentDenied: "Samtykki avvíst.",
-    noAccount: "Nýggjur brúkari?",
+    noAccount: "Onga konto?",
     username: "Brúkaranavn",
     usernameOrEmail: "Brúkaranavn ella t-postur",
     firstName: "Fornavn",

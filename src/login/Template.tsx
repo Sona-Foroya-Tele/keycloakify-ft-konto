@@ -8,7 +8,7 @@ import { useInitialize } from "keycloakify/login/Template.useInitialize";
 import type { I18n } from "./i18n";
 import type { KcContext } from "./KcContext";
 import { cn } from "@/lib/utils";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Template(props: TemplateProps<KcContext, I18n>) {
     const {
@@ -176,9 +176,9 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                         </form>
                     )}
                     {socialProvidersNode}
-
-                    {displayInfo && <>{infoNode}</>}
                 </CardContent>
+
+                {displayInfo && <CardFooter className="border-t">{displayInfo && <>{infoNode}</>}</CardFooter>}
             </Card>
         </div>
     );
