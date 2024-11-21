@@ -3,6 +3,8 @@
         padding: 0;
     }
 
+
+
     /* Following styles are just meant to avoid white flash when switching from one story to another */
     @keyframes fadeToTransparent {
         from {
@@ -13,13 +15,21 @@
             background-color: transparent;
         }
     }
+
     html {
         animation: fadeToTransparent 500ms forwards ease-in;
     }
-    body > .sb-preparing-docs {
+
+    body>.sb-preparing-docs {
         visibility: hidden;
     }
-    body > .sb-preparing-story {
+
+    body>.sb-preparing-story {
         visibility: hidden;
     }
 </style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
