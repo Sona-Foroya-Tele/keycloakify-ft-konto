@@ -98,7 +98,15 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                           ? msg("usernameOrEmail")
                                           : msg("email")}
                                 </Label>
-                                <Input tabIndex={2} id="username" type="text" autoComplete="email" placeholder="m@dømi.fo" autoFocus />
+                                <Input
+                                    tabIndex={2}
+                                    id="username"
+                                    name="username"
+                                    type="text"
+                                    autoComplete="email"
+                                    placeholder="m@dømi.fo"
+                                    autoFocus
+                                />
                                 {messagesPerField.existsError("username", "password") && (
                                     <span
                                         id="input-error"
@@ -118,6 +126,7 @@ export default function Login(props: PageProps<Extract<KcContext, { pageId: "log
                                 <Input
                                     tabIndex={3}
                                     id="password"
+                                    name="password"
                                     type="password"
                                     autoComplete="current-password"
                                     aria-invalid={messagesPerField.existsError("username", "password")}
